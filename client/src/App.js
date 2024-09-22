@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './App.css'; // Assuming you create an App.css for styling
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/items')
+            .then((response) => response.json())
+            .then((data) => setItems(data));
+    }, []);
+
+    return (
+        <div className="container">
+            <h1>Items List</h1>
+            <ul className="item-list">
+                {items.map((item) => (
+                    <li key={item.id} className="item-card">
+                        <h2>{item.name}</h2>
+                        <p>{item.description}</p>
+                        <p>Category: {item.category}</p>
+                        <p>Price: ${item.price.toFixed(2)}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default App;
