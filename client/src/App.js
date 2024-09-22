@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './App.css'; // Assuming you create an App.css for styling
+import './App.css'; 
 
 function App() {
     const [items, setItems] = useState([]);
